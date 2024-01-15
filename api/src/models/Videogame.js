@@ -1,9 +1,7 @@
 const { DataTypes } = require("sequelize");
-const currentDate = require("../helpers/getCurrentDate");
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+const { limitDate } = require("../helpers");
+
 module.exports = (sequelize) => {
-  // defino el modelo
   sequelize.define("videogame", {
     id: {
       primaryKey: true,
@@ -28,8 +26,8 @@ module.exports = (sequelize) => {
         len: [10, 256],
       },
     },
-    platform: {
-      type: DataTypes.STRING,
+    platforms: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -47,7 +45,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         isDate: true,
-        isBefore: currentDate,
+        isBefore: limitDate,
       },
     },
     rating: {
