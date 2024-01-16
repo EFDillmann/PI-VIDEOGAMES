@@ -25,7 +25,7 @@ const getVGsByNameDB = async (game) => {
   const dataDB = await Videogame.findAll({
     where: {
       name: {
-        [Op.iLike]: game,
+        [Op.iLike]: `%${game}%`,
       },
     },
     include: Genre,

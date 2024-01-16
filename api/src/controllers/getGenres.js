@@ -8,7 +8,7 @@ const getGenres = async (req, res) => {
 
   goodResponse(
     res,
-    200,
+    201,
     "Genres successfully loaded into the database.",
     dataLoaded
   );
