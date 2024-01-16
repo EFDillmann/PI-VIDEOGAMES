@@ -38,7 +38,7 @@ server.use((err, req, res, next) => {
   const status = err.statusCode || 500;
   const message = err.message || err;
 
-  errorResponse(res, status, message);
+  return errorResponse(res, status, message);
 });
 
 module.exports = server;

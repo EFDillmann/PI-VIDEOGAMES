@@ -15,7 +15,7 @@ const postVG = async (req, res) => {
     genres
   );
 
-  goodResponse(res, 201, "Videogame created successfully");
+  return goodResponse(res, 201, "Videogame created successfully");
 };
 
 module.exports = { postVG: errorCatcher(postVG) };

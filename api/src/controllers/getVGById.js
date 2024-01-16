@@ -10,7 +10,7 @@ const getVGById = async (req, res) => {
   }
   const data = await getVGByIdAPI(id);
 
-  goodResponse(res, 200, "XD", data);
+  return goodResponse(res, 200, "XD", data);
 };
 
 module.exports = { getVGById: errorCatcher(getVGById) };

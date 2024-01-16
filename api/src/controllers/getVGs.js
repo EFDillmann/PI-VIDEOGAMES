@@ -18,11 +18,11 @@ const getVGs = async (req, res) => {
     if ((data.db.length === 0) & (data.api.length === 0))
       throw new ClientError("Videogame not found", 404);
 
-    goodResponse(res, 200, "Get data successfully", data);
+    return goodResponse(res, 200, "Get data successfully", data);
   }
 
   const data = { db: await getAllVGsDB(), api: await getAllVGs() };
-  goodResponse(res, 200, "All data charged", data);
+  return goodResponse(res, 200, "All data charged", data);
 };
 
 module.exports = {

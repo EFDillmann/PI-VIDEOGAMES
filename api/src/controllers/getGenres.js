@@ -6,7 +6,7 @@ const getGenres = async (req, res) => {
 
   const dataLoaded = await createGenresInDB(genres);
 
-  goodResponse(
+  return goodResponse(
     res,
     201,
     "Genres successfully loaded into the database.",
