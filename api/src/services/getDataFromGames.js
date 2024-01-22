@@ -34,7 +34,11 @@ const getAllVGs = async () => {
     const platforms = parent_platforms.map(
       (platform) => platform.platform.name
     );
-    const genresNames = genres.map((genre) => genre.name);
+    const genresNames = genres.map((genre) => {
+      return {
+        name: genre.name,
+      };
+    });
 
     return {
       id,
@@ -68,7 +72,9 @@ const getVGById = async (idParam) => {
     const platforms = parent_platforms.map(
       (platform) => platform.platform.name
     );
-    const genresNames = genres.map((genre) => genre.name);
+    const genresNames = genres.map((genre) => {
+      return { name: genre.name };
+    });
 
     const game = {
       id,
@@ -110,7 +116,9 @@ const getVGsByName = async (game) => {
     const platforms = parent_platforms.map(
       (platform) => platform.platform.name
     );
-    const genresNames = genres.map((genre) => genre.name);
+    const genresNames = genres.map((genre) => {
+      return { name: genre.name };
+    });
 
     gamesFiltered.push({
       id,

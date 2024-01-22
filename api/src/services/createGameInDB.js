@@ -28,6 +28,13 @@ const createGameInDB = async (
   );
 
   await newGame.setGenres(genresVG);
+
+  const data = await Videogame.findOne({
+    where: { name: name },
+    include: Genre,
+  });
+
+  return data;
 };
 
 module.exports = createGameInDB;

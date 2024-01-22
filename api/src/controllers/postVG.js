@@ -5,7 +5,7 @@ const postVG = async (req, res) => {
   const { name, image, platforms, description, released_date, rating, genres } =
     req.body;
 
-  createGameInDB(
+  const data = await createGameInDB(
     name,
     image,
     platforms,
@@ -15,7 +15,7 @@ const postVG = async (req, res) => {
     genres
   );
 
-  return goodResponse(res, 201, "Videogame created successfully");
+  return goodResponse(res, 201, "Videogame created successfully", data);
 };
 
 module.exports = { postVG: errorCatcher(postVG) };
