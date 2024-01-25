@@ -1,5 +1,7 @@
 const { Videogame, Genre } = require("../db");
 
+const { ClientError } = require("../helpers/errors");
+
 const createGameInDB = async (
   name,
   image,
@@ -9,6 +11,11 @@ const createGameInDB = async (
   rating,
   genres
 ) => {
+  const alreadyExist = await Videogame.findOne({ where: { name: name } });
+
+  if (alreadyExist?.dataValues.id)
+    throw new ClientError("The videogame already exists");
+
   const newGame = await Videogame.create({
     name,
     image,
@@ -30,7 +37,7 @@ const createGameInDB = async (
   await newGame.setGenres(genresVG);
 
   const data = await Videogame.findOne({
-    where: { name: name },
+    where: { id: newGame.dataValues.id },
     include: Genre,
   });
 
