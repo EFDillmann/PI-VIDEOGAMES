@@ -37,6 +37,11 @@ const Post = () => {
     } else setDisabled(true);
   };
 
+  const handleDelete = (prop, value) => {
+    const filterData = videogameData[prop].filter((data) => data !== value);
+    setVideogameData({ ...videogameData, [prop]: filterData });
+  };
+
   const handleFieldChange = ({ target, type }) => {
     const { name, value } = target;
 
@@ -75,7 +80,6 @@ const Post = () => {
       platforms: [],
       genres: [],
     });
-    alert("creado bro");
   };
 
   return (
@@ -152,6 +156,21 @@ const Post = () => {
         options={platforms}
         className={errors?.platforms && styles.borderRed}
       />
+      <div className={styles.addedPost}>
+        {videogameData.platforms?.map((platform, index) => {
+          return (
+            <p key={index} className={styles.addedPlatform}>
+              {platform}
+              <a
+                className={styles.deleteBtn}
+                onClick={() => handleDelete("platforms", platform)}
+              >
+                -
+              </a>
+            </p>
+          );
+        })}
+      </div>
       {errors?.platforms && <p className={styles.errorP}>{errors.platforms}</p>}
       <FormInput
         label="Genres"
@@ -161,6 +180,21 @@ const Post = () => {
         options={genres}
         className={errors?.genres && styles.borderRed}
       />
+      <div className={styles.addedPost}>
+        {videogameData.genres?.map((genre, index) => {
+          return (
+            <p key={index} className={styles.addedPlatform}>
+              {genre}
+              <a
+                className={styles.deleteBtn}
+                onClick={() => handleDelete("genres", genre)}
+              >
+                -
+              </a>
+            </p>
+          );
+        })}
+      </div>
       {errors?.genres && <p className={styles.errorP}>{errors.genres}</p>}
       <input
         type="submit"

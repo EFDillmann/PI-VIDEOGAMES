@@ -25,6 +25,7 @@ const FormInput = ({
           onBlur={onBlur}
           className={className ? className : styles.inputsInput}
         >
+          <option>{name}</option>
           {options.map((option, index) => (
             <option key={index} value={option.name ? option.name : option}>
               {option.name ? option.name : option}
@@ -33,6 +34,7 @@ const FormInput = ({
         </select>
       ) : (
         <input
+          autoComplete="off"
           type={type}
           name={name}
           placeholder={placeholder}

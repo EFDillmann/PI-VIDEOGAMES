@@ -42,3 +42,25 @@
   text-align: center;
   border: 2px solid red;
 }
+.addedPost {
+  display: flex;
+  gap: 1rem;
+}
+.addedPlatform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  text-align: center;
+}
+.deleteBtn {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+  border-radius: 5px;
+  box-shadow: -1px 1px 5px black;
+}

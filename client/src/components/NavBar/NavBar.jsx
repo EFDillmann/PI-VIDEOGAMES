@@ -8,12 +8,14 @@ const NavBar = () => {
   const { pathname } = useLocation();
   return (
     <nav className={styles.navbar}>
-      <img
-        src="../../public/assets/images/evolve-games.png"
-        alt="Evolve games logo"
-        width="55px"
-        className={styles.logoNav}
-      />
+      <Link to="/">
+        <img
+          src="../../public/assets/images/evolve-games.png"
+          alt="Evolve games logo"
+          width="55px"
+          className={styles.logoNav}
+        />
+      </Link>
       <ul className={styles.sectionsNav}>
         <li>
           <Link className={styles.li} to="/home">

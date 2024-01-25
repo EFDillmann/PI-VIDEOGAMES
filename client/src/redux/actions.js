@@ -77,12 +77,15 @@ export function postVideogame(newVideogame) {
     try {
       const { data } = await axios.post(`${URL_BASE}videogames`, newVideogame);
 
+      alert("Videogame created successfully");
+
       return dispatch({
         type: POSTVIDEOGAME,
         payload: data,
       });
-    } catch (error) {
-      console.error(error);
+    } catch ({ response }) {
+      alert(response.data.message);
+      console.error(response.data.message);
     }
   };
 }

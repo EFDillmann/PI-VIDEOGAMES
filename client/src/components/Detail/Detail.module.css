@@ -15,8 +15,8 @@
   text-align: center;
 }
 .detailMain img {
-  max-height: 620px;
-  max-width: 60vw;
+  height: 620px;
+  width: 60vw;
   object-fit: cover;
   box-shadow: 20px 10px 100px black;
 }
