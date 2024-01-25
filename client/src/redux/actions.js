@@ -53,8 +53,9 @@ export function getVideogamesByName(name) {
         type: GETVIDEOGAMESBYNAME,
         payload: data,
       });
-    } catch (error) {
-      console.error(error);
+    } catch ({ response }) {
+      alert(response.data.message);
+      console.error(response);
     }
   };
 }

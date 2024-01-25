@@ -40,10 +40,21 @@ const Post = () => {
   const handleDelete = (prop, value) => {
     const filterData = videogameData[prop].filter((data) => data !== value);
     setVideogameData({ ...videogameData, [prop]: filterData });
+
+    if (prop === "platforms") {
+      const platformsSelect = document.getElementById("platformsSelect");
+      platformsSelect.value = "0";
+    }
+    if (prop === "genres") {
+      const genresSelect = document.getElementById("genresSelect");
+      genresSelect.value = "0";
+    }
   };
 
   const handleFieldChange = ({ target, type }) => {
     const { name, value } = target;
+
+    if (value === "0") return;
 
     if (Array.isArray(videogameData[name])) {
       setVideogameData({
@@ -149,6 +160,7 @@ const Post = () => {
       />
       {errors?.rating && <p className={styles.errorP}>{errors.rating}</p>}
       <FormInput
+        id="platformsSelect"
         label="Platforms"
         type="select"
         name="platforms"
@@ -173,6 +185,7 @@ const Post = () => {
       </div>
       {errors?.platforms && <p className={styles.errorP}>{errors.platforms}</p>}
       <FormInput
+        id="genresSelect"
         label="Genres"
         type="select"
         name="genres"

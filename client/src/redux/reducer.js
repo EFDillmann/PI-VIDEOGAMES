@@ -92,6 +92,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         videogames: [payload.data, ...state.videogames],
         renderVideogames: [payload.data, ...state.videogames],
+        buVideogames: [payload.data, ...state.videogames],
         totalVideogames: state.totalVideogames + 1,
       };
 

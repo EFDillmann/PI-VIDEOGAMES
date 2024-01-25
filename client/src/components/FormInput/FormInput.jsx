@@ -1,6 +1,7 @@
 import styles from "./FormInput.module.css";
 
 const FormInput = ({
+  id,
   label,
   type,
   name,
@@ -20,12 +21,13 @@ const FormInput = ({
       </label>
       {type === "select" ? (
         <select
+          id={id}
           name={name}
           onChange={onChange}
           onBlur={onBlur}
           className={className ? className : styles.inputsInput}
         >
-          <option>{name}</option>
+          <option value="0">{name}</option>
           {options.map((option, index) => (
             <option key={index} value={option.name ? option.name : option}>
               {option.name ? option.name : option}

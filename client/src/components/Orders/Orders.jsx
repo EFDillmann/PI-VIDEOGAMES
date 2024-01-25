@@ -39,14 +39,14 @@ const Orders = () => {
         onClick={handleRatingOrder}
         className={styles.ordersBtn}
       >
-        Ascendant
+        Rating +
       </button>
       <button
         value="D"
         onClick={handleRatingOrder}
         className={styles.ordersBtn}
       >
-        Descendant
+        Rating -
       </button>
     </>
   );
