@@ -1,22 +1,20 @@
-import SearchBar from "../SearchBar/SearchBar";
 import Orders from "../Orders/Orders";
 import Filters from "../Filters/Filters";
 import Cards from "../Cards/Cards";
 import Pagination from "../Pagination/Pagination";
-import { Link } from "react-router-dom";
+
+import styles from "./Home.module.css";
 
 const Home = () => {
   return (
-    <>
-      <SearchBar />
-      <Orders />
-      <Filters />
+    <div className={styles.homeContainer}>
+      <div className={styles.homeMenu}>
+        <Orders />
+        <Filters />
+      </div>
       <Cards />
       <Pagination />
-      <Link to="/post">
-        <button>Create</button>
-      </Link>
-    </>
+    </div>
   );
 };
 

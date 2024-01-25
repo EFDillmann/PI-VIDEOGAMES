@@ -1,0 +1,19 @@
+.labelInput {
+  font-size: 1.5rem;
+}
+.inputsInput {
+  width: 300px;
+  height: 40px;
+  padding-inline: 5px;
+
+  background-color: black;
+  border-radius: 10px;
+  border: none;
+
+  color: antiquewhite;
+  text-align: center;
+}
+.inputsInput::placeholder {
+  color: antiquewhite;
+  text-align: center;
+}

@@ -16,8 +16,10 @@ import {
 
 const initialState = {
   videogames: [],
+  buVideogames: [],
   genres: [],
   platforms: [],
+
   renderVideogames: [],
   renderDetailVideogame: [],
 
@@ -25,8 +27,8 @@ const initialState = {
   totalVideogames: 0,
   itemsByPage: 15,
 
-  filterGenres: false,
-  filterVideogames: false,
+  filterGenre: false,
+  filterOrigin: false,
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -55,6 +57,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         genres: payload.data,
       };
+
     case GETALLVIDEOGAMES: {
       const total = [...payload.data.db, ...payload.data.api];
       const platformsPerVideogames = total.map(
@@ -66,6 +69,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         videogames: total,
         renderVideogames: total,
+        buVideogames: total,
         totalVideogames: total.length,
         platforms: allPlatforms,
       };
@@ -73,19 +77,24 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case GETVIDEOGAMESBYNAME:
       return {
         ...state,
+        videogames: [...payload.data.db, ...payload.data.api],
         renderVideogames: [...payload.data.db, ...payload.data.api],
+        totalVideogames: [...payload.data.db, ...payload.data.api].length,
+        currentPage: 1,
       };
     case GETVIDEOGAMEBYID:
       return {
         ...state,
-        renderDetailVideogame: payload.data,
+        renderDetailVideogame: [payload.data],
       };
     case POSTVIDEOGAME:
       return {
         ...state,
         videogames: [payload.data, ...state.videogames],
+        renderVideogames: [payload.data, ...state.videogames],
         totalVideogames: state.totalVideogames + 1,
       };
+
     case MODIFYPAGE: {
       let value = payload;
 
@@ -117,10 +126,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
             ? 1
             : Math.ceil(state.totalVideogames / state.itemsByPage),
       };
+
     case RESET:
       return {
         ...state,
-        renderVideogames: state.videogames,
+        videogames: state.buVideogames,
+        renderVideogames: state.buVideogames,
+        totalVideogames: state.buVideogames.length,
+        filterGenre: false,
+        filterOrigin: false,
       };
     case ALPHABETICORDER: {
       let orderVideogames = [...state.renderVideogames];
@@ -154,24 +168,24 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     }
     case FILTERBYGENRES: {
-      let filteredVideogames = filters(payload, state.filterVideogames);
+      let filteredVideogames = filters(payload, state.filterOrigin);
       return {
         ...state,
         renderVideogames: filteredVideogames,
         totalVideogames: filteredVideogames.length,
         currentPage: 1,
-        filterGenres: payload,
+        filterGenre: payload,
       };
     }
     case FILTERBYORIGIN: {
-      let filteredVideogames = filters(state.filterGenres, payload);
+      let filteredVideogames = filters(state.filterGenre, payload);
 
       return {
         ...state,
         renderVideogames: filteredVideogames,
         totalVideogames: filteredVideogames.length,
         currentPage: 1,
-        filterVideogames: payload,
+        filterOrigin: payload,
       };
     }
     default:

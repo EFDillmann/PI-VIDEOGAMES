@@ -113,7 +113,7 @@ const getVGsByName = async (game) => {
       genres,
     } = game;
 
-    const platforms = parent_platforms.map(
+    const platforms = parent_platforms?.map(
       (platform) => platform.platform.name
     );
     const genresNames = genres.map((genre) => {

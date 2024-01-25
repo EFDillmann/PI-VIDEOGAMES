@@ -1,0 +1,29 @@
+.inputText {
+  height: 30px;
+  width: 110px;
+  padding: 5px;
+
+  background-color: rgb(20, 17, 17);
+  border: none;
+  border-radius: 5px 0 0 5px;
+  filter: drop-shadow(0 5px 8px black);
+
+  color: antiquewhite;
+}
+.inputText::placeholder {
+  color: antiquewhite;
+}
+.inputText:focus-visible {
+  outline: none;
+}
+.inputSubmit {
+  height: 30px;
+  padding: 5px;
+
+  background-color: rgb(20, 17, 17);
+  border-radius: 0 5px 5px 0;
+  border: none;
+  filter: drop-shadow(0 5px 8px black);
+
+  color: antiquewhite;
+}

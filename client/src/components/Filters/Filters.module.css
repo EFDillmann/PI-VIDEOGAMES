@@ -1,0 +1,12 @@
+.filterSelect {
+  padding: 0 6px;
+  background-color: blanchedalmond;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 1px 4px 7px black;
+
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+}

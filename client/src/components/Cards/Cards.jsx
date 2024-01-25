@@ -3,12 +3,12 @@ import { getAllVideogames, getGenres } from "../../redux/actions";
 
 import { useEffect } from "react";
 import Card from "../Card/Card";
+import Spinner from "../Spinner/Spinner";
 
 import styles from "./Cards.module.css";
 
 const Cards = () => {
   const videogames = useSelector((state) => state.renderVideogames);
-  const platformsState = useSelector((state) => state.platforms);
   const genres = useSelector((state) => state.genres);
   const current = useSelector((state) => state.currentPage);
   const totalVideogames = useSelector((state) => state.totalVideogames);
@@ -24,31 +24,33 @@ const Cards = () => {
   useEffect(() => {
     if (videogames.length === 0) dispatch(getAllVideogames());
     if (genres.length === 0) dispatch(getGenres());
-    setTimeout(() => {
-      console.log({ videogames, platformsState });
-    }, 4000);
   }, []);
-  return (
-    <article className={styles.cardsContainer}>
-      {videogames
-        .map((vg) => {
-          const nameFix = vg.name.replaceAll("-", " ");
-          return (
-            <Card
-              key={vg.id}
-              id={vg.id}
-              name={nameFix}
-              image={vg.image}
-              genres={vg.genres}
-              platforms={vg.platforms}
-              rating={vg.rating}
-              released_date={vg.released_date}
-            />
-          );
-        })
-        .slice(start, end)}
-    </article>
-  );
+  {
+    return videogames.length !== 0 ? (
+      <article className={styles.cardsContainer}>
+        {videogames
+          ?.map((vg) => {
+            const nameFix = vg.name.replaceAll("-", " ");
+            return (
+              <Card
+                key={vg.id}
+                id={vg.id}
+                name={nameFix}
+                image={vg.image}
+                genres={vg.genres}
+                rating={vg.rating}
+                released_date={vg.released_date}
+              />
+            );
+          })
+          .slice(start, end)}
+      </article>
+    ) : (
+      <article className={styles.cardsContainer}>
+        <Spinner />
+      </article>
+    );
+  }
 };
 
 export default Cards;

@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
 import { reset, alphabeticOrder, ratingOrder } from "../../redux/actions";
 
+import styles from "./Orders.module.css";
+
 const Orders = () => {
   const dispatch = useDispatch();
 
@@ -15,17 +17,35 @@ const Orders = () => {
   };
   return (
     <>
-      <button onClick={handleReset}>Reset</button>
-      <button value="A-Z" onClick={handleAlphabeticOrder}>
+      <button onClick={handleReset} className={styles.ordersBtn}>
+        Reset
+      </button>
+      <button
+        value="A-Z"
+        onClick={handleAlphabeticOrder}
+        className={styles.ordersBtn}
+      >
         A-Z
       </button>
-      <button value="Z-A" onClick={handleAlphabeticOrder}>
+      <button
+        value="Z-A"
+        onClick={handleAlphabeticOrder}
+        className={styles.ordersBtn}
+      >
         Z-A
       </button>
-      <button value="A" onClick={handleRatingOrder}>
+      <button
+        value="A"
+        onClick={handleRatingOrder}
+        className={styles.ordersBtn}
+      >
         Ascendant
       </button>
-      <button value="D" onClick={handleRatingOrder}>
+      <button
+        value="D"
+        onClick={handleRatingOrder}
+        className={styles.ordersBtn}
+      >
         Descendant
       </button>
     </>

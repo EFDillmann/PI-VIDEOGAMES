@@ -4,8 +4,21 @@
   box-sizing: border-box;
   text-decoration: none;
   list-style: none;
+
+  font-family: "Kanit", sans-serif;
 }
 html,
 body {
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+
+  background: linear-gradient(90deg, #010101, #fcc15da1 50%, #010101);
+}
+#root {
+  width: 100%;
+  height: 100%;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }

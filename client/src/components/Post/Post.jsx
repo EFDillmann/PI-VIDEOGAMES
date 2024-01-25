@@ -2,9 +2,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { postVideogame } from "../../redux/actions";
 
 import { useState } from "react";
+import FormInput from "../FormInput/FormInput";
 
 import limitDate from "../../helpers/limitDate";
 import validation from "../../helpers/validation";
+
+import styles from "./Post.module.css";
 
 const Post = () => {
   const genres = useSelector((state) => state.genres);
@@ -21,119 +24,150 @@ const Post = () => {
     genres: [],
   });
   const [errors, setErrors] = useState({});
+  const [disabled, setDisabled] = useState(true);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const isDisabled = () => {
+    const hadErrors = Object.values(errors);
+    const hadData = Object.values(videogameData).every(
+      (data) => data.length > 0
+    );
+
+    if (hadErrors[0]?.length === 0 && hadData) {
+      setDisabled(false);
+    } else setDisabled(true);
+  };
+
+  const handleFieldChange = ({ target, type }) => {
+    const { name, value } = target;
 
     if (Array.isArray(videogameData[name])) {
-      if (videogameData[name].includes(value)) {
-        setVideogameData({ ...videogameData });
-        // setErrors(validation(videogameData, name, value));
-      } else {
-        setVideogameData({
-          ...videogameData,
-          [name]: [...videogameData[name], value],
-        });
-        // setErrors(validation(videogameData, name, value));
-      }
+      setVideogameData({
+        ...videogameData,
+        [name]: videogameData[name].includes(value)
+          ? [...videogameData[name]]
+          : [...videogameData[name], value],
+      });
+      setErrors(validation(videogameData, name, value));
     } else {
       setVideogameData({
         ...videogameData,
         [name]: value,
       });
     }
+
+    if (type === "blur") {
+      setErrors(validation(videogameData, name, value));
+    }
+
+    isDisabled();
   };
-  const handleBlur = (event) => {
-    const { name, value } = event.target;
-    handleChange(event);
-    setErrors(validation(videogameData, name, value));
-  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const hadErrors = Object.values(errors);
-    if (hadErrors.length === 0 || hadErrors[0].length === 0) {
-      dispatch(postVideogame(videogameData));
-      console.log("creado");
-    }
+    dispatch(postVideogame(videogameData));
+    setVideogameData({
+      name: "",
+      image: "",
+      description: "",
+      released_date: "",
+      rating: "",
+      platforms: [],
+      genres: [],
+    });
+    alert("creado bro");
   };
 
   return (
-    <form method="post">
-      <label htmlFor="name">Name</label>
-      <input
+    <form
+      method="post"
+      onSubmit={handleSubmit}
+      className={styles.formContainer}
+    >
+      <FormInput
+        label="Name"
         type="text"
         name="name"
         placeholder="Grand-Thef-Auto V"
-        onBlur={handleBlur}
-        onChange={handleChange}
+        onBlur={handleFieldChange}
+        onChange={handleFieldChange}
         value={videogameData.name}
+        className={errors?.name && styles.borderRed}
       />
-      {errors.name && <p>{errors.name}</p>}
-      <label htmlFor="image">Image</label>
-      <input
+      {errors?.name && <p className={styles.errorP}>{errors.name}</p>}
+      <FormInput
+        label="Image"
         type="text"
         name="image"
         placeholder="https://your-image.com"
-        onBlur={handleBlur}
-        onChange={handleChange}
+        onBlur={handleFieldChange}
+        onChange={handleFieldChange}
         value={videogameData.image}
+        className={errors?.image && styles.borderRed}
       />
-      {errors.image && <p>{errors.image}</p>}
-      <label htmlFor="description">Description</label>
-      <input
+      {errors?.image && <p className={styles.errorP}>{errors.image}</p>}
+      <FormInput
+        label="Description"
         type="text"
         name="description"
         placeholder="Game developed by Rockstar Games in ..."
-        onBlur={handleBlur}
-        onChange={handleChange}
+        onBlur={handleFieldChange}
+        onChange={handleFieldChange}
         value={videogameData.description}
+        className={errors?.description && styles.borderRed}
       />
-      {errors.description && <p>{errors.description}</p>}
-      <label htmlFor="released_date">Released date</label>
-      <input
+      {errors?.description && (
+        <p className={styles.errorP}>{errors.description}</p>
+      )}
+      <FormInput
+        label="Released date"
         type="date"
         name="released_date"
+        onBlur={handleFieldChange}
+        onChange={handleFieldChange}
+        value={videogameData.released_date}
         min="1958-01-01"
         max={limitDate}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={videogameData.released_date}
+        className={errors?.released_date && styles.borderRed}
       />
-      {errors.released_date && <p>{errors.released_date}</p>}
-      <label htmlFor="rating">Rating</label>
-      <input
+      {errors?.released_date && (
+        <p className={styles.errorP}>{errors.released_date}</p>
+      )}
+      <FormInput
+        label="Rating"
         type="number"
         name="rating"
         placeholder="99"
-        onBlur={handleBlur}
-        onChange={handleChange}
+        onBlur={handleFieldChange}
+        onChange={handleFieldChange}
         value={videogameData.rating}
+        className={errors?.rating && styles.borderRed}
       />
-      {errors.rating && <p>{errors.rating}</p>}
-      <label htmlFor="platforms">Platforms</label>
-      <select name="platforms" onChange={handleBlur}>
-        {platforms.map((platform, index) => {
-          return (
-            <option key={index} value={platform.toUpperCase()}>
-              {platform.toUpperCase()}
-            </option>
-          );
-        })}
-      </select>
-      {errors.platforms && <p>{errors.platforms}</p>}
-      <label htmlFor="genres">Genres</label>
-      <select name="genres" onChange={handleChange}>
-        {genres.map((genre) => {
-          return (
-            <option key={genre.id} value={genre.name.toLowerCase()}>
-              {genre.name}
-            </option>
-          );
-        })}
-      </select>
-      {errors.genres && <p>{errors.genres}</p>}
-      <input type="submit" value="Create" onClick={handleSubmit} />
+      {errors?.rating && <p className={styles.errorP}>{errors.rating}</p>}
+      <FormInput
+        label="Platforms"
+        type="select"
+        name="platforms"
+        onChange={handleFieldChange}
+        options={platforms}
+        className={errors?.platforms && styles.borderRed}
+      />
+      {errors?.platforms && <p className={styles.errorP}>{errors.platforms}</p>}
+      <FormInput
+        label="Genres"
+        type="select"
+        name="genres"
+        onChange={handleFieldChange}
+        options={genres}
+        className={errors?.genres && styles.borderRed}
+      />
+      {errors?.genres && <p className={styles.errorP}>{errors.genres}</p>}
+      <input
+        type="submit"
+        value="Create"
+        disabled={disabled}
+        className={styles.submitPost}
+      />
     </form>
   );
 };

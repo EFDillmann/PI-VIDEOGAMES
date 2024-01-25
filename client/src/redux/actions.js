@@ -62,7 +62,6 @@ export function getVideogameById(id) {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`${URL_BASE}videogames/${id}`);
-      console.log(data);
 
       return dispatch({
         type: GETVIDEOGAMEBYID,
@@ -76,12 +75,11 @@ export function getVideogameById(id) {
 export function postVideogame(newVideogame) {
   return async (dispatch) => {
     try {
-      const response = axios.post(`${URL_BASE}videogames`, newVideogame);
-      console.log(response);
+      const { data } = await axios.post(`${URL_BASE}videogames`, newVideogame);
 
       return dispatch({
         type: POSTVIDEOGAME,
-        payload: response,
+        payload: data,
       });
     } catch (error) {
       console.error(error);

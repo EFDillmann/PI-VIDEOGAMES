@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { modifyPage, topPage, bottomPage } from "../../redux/actions";
 
+import styles from "./Pagination.module.css";
+
 const Pagination = () => {
   const current = useSelector((state) => state.currentPage);
   const dispatch = useDispatch();
@@ -19,19 +21,23 @@ const Pagination = () => {
   };
 
   return (
-    <article>
-      <section>
-        <button onClick={onBottomPage}>{"|<"}</button>
-      </section>
-      <section>
-        <button onClick={backPage}>{"<"}</button>
+    <article className={styles.paginationContainer}>
+      <section className={styles.btns}>
+        <button onClick={onBottomPage} className={styles.paginationBtn}>
+          {"|<"}
+        </button>
+        <button onClick={backPage} className={styles.paginationBtn}>
+          {"<"}
+        </button>
       </section>
       <h3>{current}</h3>
-      <section>
-        <button onClick={nextPage}>{">"}</button>
-      </section>
-      <section>
-        <button onClick={onTopPage}>{">|"}</button>
+      <section className={styles.btns}>
+        <button onClick={nextPage} className={styles.paginationBtn}>
+          {">"}
+        </button>
+        <button onClick={onTopPage} className={styles.paginationBtn}>
+          {">|"}
+        </button>
       </section>
     </article>
   );

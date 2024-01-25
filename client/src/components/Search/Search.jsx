@@ -1,8 +1,11 @@
 import { useDispatch } from "react-redux";
 import { getVideogamesByName } from "../../redux/actions";
+
 import { useState } from "react";
 
-const SearchBar = () => {
+import styles from "./Search.module.css";
+
+const Search = () => {
   const dispatch = useDispatch();
 
   const [query, setQuery] = useState("");
@@ -18,17 +21,23 @@ const SearchBar = () => {
     }
   };
   return (
-    <form>
+    <form className={styles.searchNav}>
       <input
         type="text"
         name="query"
         placeholder="GTA V..."
         onChange={handleChange}
         value={query}
+        className={styles.inputText}
       />
-      <input type="submit" value="Search" onClick={handleSubmit} />
+      <input
+        type="submit"
+        value="Search"
+        onClick={handleSubmit}
+        className={styles.inputSubmit}
+      />
     </form>
   );
 };
 
-export default SearchBar;
+export default Search;

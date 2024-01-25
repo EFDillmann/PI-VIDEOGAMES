@@ -1,0 +1,13 @@
+.ordersBtn {
+  width: fit-content;
+  padding: 6px 10px;
+
+  background-color: blanchedalmond;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 1px 4px 7px black;
+
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}

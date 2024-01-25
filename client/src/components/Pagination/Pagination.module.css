@@ -1,0 +1,25 @@
+.paginationContainer {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.btns {
+  display: flex;
+  gap: 2rem;
+}
+.paginationBtn {
+  padding: 4px 20px;
+
+  cursor: pointer;
+  background-color: blanchedalmond;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 1px 4px 7px black;
+
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-align: center;
+}
